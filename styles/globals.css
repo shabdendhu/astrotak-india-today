@@ -14,3 +14,113 @@ a {
 * {
   box-sizing: border-box;
 }
+.menu-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  position: fixed;
+  width: 100%;
+  background-color: white;
+  z-index: 99;
+  top: 0;
+}
+.balance-bar {
+  background-color: #4b60bc;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+  padding: 17px 0px;
+  font-weight: 700;
+  position: fixed;
+  width: 100%;
+  top: 80px;
+  z-index: 99;
+}
+.addMoney {
+  border: none;
+  height: 25px;
+  border-radius: 5px;
+  width: 112px;
+  outline: none;
+  color: black;
+}
+.question {
+  font-weight: 700;
+  font-size: 17px;
+}
+.home-container {
+  padding: 10px;
+  margin-top: 140px;
+  padding-bottom: 140px;
+}
+.question-icon {
+  /* position: absolute; */
+  background-color: #f28e23;
+  color: white;
+  transform: rotate(45deg);
+  height: 23px;
+  width: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 0px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  /* color: #f28e23; */
+  height: 75px;
+  background-color: white;
+  box-shadow: inset 1px 1px 0 rgb(0 0 0 / 14%);
+}
+.footer-icon {
+  height: 30px;
+  width: 30px;
+}
+.footer-icon-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.footer-notification {
+  position: fixed;
+  width: 100%;
+  background-color: #4b60bc;
+  height: 55px;
+  border-radius: 5px;
+  bottom: 75px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.footer-notification-button {
+  outline: none;
+  border: none;
+  color: black;
+  border-radius: 4px;
+  width: 100px;
+}
+.quick-access {
+  position: fixed;
+  bottom: 138px;
+  right: 20px;
+  border: none;
+  background: #f28e23;
+  color: white;
+  border-radius: 71px;
+  padding: 10px;
+  width: 60px;
+  height: 60px;
+  font-size: 20px;
+  box-shadow: 0px 12px 6px -1px rgb(0 0 0 / 20%),
+    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
