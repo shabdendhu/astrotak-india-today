@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
@@ -11,10 +12,11 @@ const Footer = () => {
         <img className="footer-icon" src="talk.png" />
         Talk
       </span>
-      <span className="footer-icon-container">
+     <Link href='/'>
+     <span className="footer-icon-container">
         <img className="footer-icon" src="ask.png" />
         Ask Question
-      </span>
+      </span></Link>
       <span className="footer-icon-container">
         <img className="footer-icon" src="reports.png" />
         Reports
