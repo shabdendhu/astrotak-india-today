@@ -54,7 +54,7 @@ const ProfileList = () => {
           
     <div className="profile-form-header" onClick={()=>{setAddNewProfile(false)}}><LeftOutlined /> Add New Profile</div>
           
-          <AddNewProfile form={form}/></div>}
+          <AddNewProfile getAllRelatives={getAllRelatives} setAddNewProfile={e=>setAddNewProfile(e)} form={form}/></div>}
     </div>
   );
 };

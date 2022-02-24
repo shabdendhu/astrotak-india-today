@@ -26,8 +26,8 @@ const endpoints = [
   },
   {
     path: "location/place?inputPlace=",
-    method: "put",
-    functionName: "updateRelative",
+    method: "get",
+    functionName: "getPlace",
   },
 ];
 export default endpoints;

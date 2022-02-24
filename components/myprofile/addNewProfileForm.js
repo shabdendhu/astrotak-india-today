@@ -1,8 +1,21 @@
-import React from "react";
-import { Col, DatePicker, Form, Input, Row, Select, TimePicker } from "antd";
-import TextArea from "antd/lib/input/TextArea";
-import { LeftOutlined } from "@ant-design/icons/lib/icons";
-const AddNewProfile = ({ form }) => {
+import React, { useEffect, useState } from "react";
+import {
+  AutoComplete,
+  Col,
+  DatePicker,
+  Form,
+  Input,
+  Row,
+  Select,
+  TimePicker,
+} from "antd";
+import maper from "../../utils/maper";
+import { API } from "../../services/api.service";
+
+const AddNewProfile = ({ setAddNewProfile, getAllRelatives }) => {
+  const [palces, setPlaces] = useState([]);
+  const [selectedPlace, setSelectedPlace] = useState({});
+  const [form] = Form.useForm();
   const relations = [
     { name: "Father", id: 1 },
     { name: "Mother", id: 2 },
@@ -21,63 +34,108 @@ const AddNewProfile = ({ form }) => {
     { name: "Friend", id: 15 },
     { name: "Fiance", id: 16 },
   ];
+  const handleChangePlace = async (e) => {
+    if (e) {
+      const res = await API.getPlace({ id: e });
+      if (res.success) {
+        setPlaces(res.data || []);
+        console.log(res.data);
+      }
+    }
+  };
+
   const saveChanges = () => {
-    form.validateFields().then(() => {
-      console.log("kfjvkjvn");
+    form.validateFields().then(async (value) => {
+      value.birthPlace = selectedPlace;
+      let payload = maper.addRealtiveData(value);
+      const addRes = await API.addNewRelative(payload);
+      if (addRes.data.success) {
+        form.resetFields();
+        setAddNewProfile(false);
+        getAllRelatives();
+      }
+      console.log(payload, addRes);
     });
   };
+
+  const onSelect = (data) => {
+    console.log("onSelect", data);
+    palces.forEach((e, i) => {
+      if (data === e.placeName) {
+        setSelectedPlace(e);
+      }
+    });
+  };
+
   return (
     <>
       <Form form={form}>
+        <span className="labels">Name</span>
         <Form.Item
           name="name"
           rules={[{ required: true, message: "Please Give valid name" }]}
         >
-          <span className="labels">Name</span>
           <Input />
         </Form.Item>
 
+        <span className="labels">Date of Birth</span>
         <Form.Item
-          name="name"
+          name="dob"
           rules={[{ required: true, message: "Invalid Date of Birth!" }]}
         >
-          <span className="labels">Date of Birth</span>
           <DatePicker />
         </Form.Item>
+        <span className="labels">Time of Birth</span>
         <Form.Item
-          name="name"
+          name="tob"
           rules={[{ required: true, message: "Invalid Time of Birth!" }]}
         >
-          <span className="labels">Time of Birth</span>
           <TimePicker use12Hours />
         </Form.Item>
+        <span className="labels">Place of Birth</span>
         <Form.Item
-          name="name"
+          name="placeOfBirth"
           rules={[{ required: true, message: "Invalid Place of Birth!" }]}
         >
-          <span className="labels">Place of Birth</span>
-          <Input />
+          <AutoComplete
+            onSelect={onSelect}
+            style={{ width: "100%", height: "50px" }}
+            onSearch={handleChangePlace}
+            placeholder="search here"
+          >
+            {palces.map((e) => (
+              <AutoComplete.Option key={e.placeId} value={e.placeName}>
+                {e.placeName}
+              </AutoComplete.Option>
+            ))}
+          </AutoComplete>
         </Form.Item>
         <Row gutter={[8, 6]}>
           <Col span={12}>
+            <span className="labels">Gender</span>
             <Form.Item
-              name="name"
+              name="gender"
               rules={[{ required: true, message: "Invalid Gender!" }]}
             >
-              <span className="labels">Gender</span>
               <Select style={{ height: "50px" }}>
-                <Select.Option>MALE</Select.Option>
-                <Select.Option>FEMALE</Select.Option>
-                <Select.Option>OTHERS</Select.Option>
+                <Select.Option kay={1} value="MALE">
+                  MALE
+                </Select.Option>
+                <Select.Option kay={1} value="FEMALE">
+                  FEMALE
+                </Select.Option>
+                <Select.Option kay={1} value="OTHERS">
+                  OTHERS
+                </Select.Option>
               </Select>
             </Form.Item>
           </Col>
           <Col span={12}>
+            <span className="labels">Relation</span>
             <Form.Item
-              name="name"
+              name="relation"
               rules={[{ required: true, message: "Invalid Gender!" }]}
             >
-              <span className="labels">Relation</span>
               <Select style={{ height: "50px" }}>
                 {relations.map((e, i) => (
                   <Select.Option value={e.id} key={i}>
