@@ -1,3 +1,4 @@
+/*eslint-disable */
 import React, { useState } from "react";
 import { WalletFilled } from "@ant-design/icons/lib/icons";
 import { Form } from "antd";
