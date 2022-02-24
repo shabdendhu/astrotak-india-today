@@ -3,7 +3,7 @@ import moment from "moment";
 const maper = {
   relativeData: (obj) => {
     return {
-      id:obj.uuid,
+      id: obj.uuid,
       name: obj.firstName,
       dob: moment(obj.dateAndTimeOfBirth).format("YYYY-MM-DD"),
       tob: moment(obj.dateAndTimeOfBirth).format("hh:mm"),
@@ -35,16 +35,26 @@ const maper = {
       gender: obj.gender,
     };
   },
-  editObj:(obj)=>{
+  editObj: (obj) => {
     return {
-      name:'',
-      dob:'',
-      tob:'',
-      placeOfBirth:'',
-      gender:'',
-      relation:'',
-
-    }
-  }
+      name: obj.firstName,
+      dob: moment([
+        obj.birthDetails.dobYear,
+        obj.birthDetails.dobMonth,
+        obj.birthDetails.dobDay,
+      ]),
+      tob: moment({
+        hour: obj.birthDetails.tobHour,
+        minute: obj.birthDetails.tobMin,
+      }),
+      placeOfBirth: obj.birthPlace.placeName,
+      gender: obj.gender,
+      relation: {
+        key: obj.relationId,
+        label: obj.relation,
+        value: obj.relationId,
+      },
+    };
+  },
 };
 export default maper;

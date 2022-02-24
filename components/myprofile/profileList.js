@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import { API } from "../../services/api.service";
 import maper from "../../utils/maper";
 import AddNewProfile from "./addNewProfileForm";
-const ListCard = ({ data, setIsModalVisible, setSelecetedRow }) => {
+const ListCard = ({ data, setIsModalVisible, setSelecetedRow ,setAddNewProfile,setactionType}) => {
   return (
     <div className="profile-list-card">
       <span>{data.name}</span>
@@ -18,6 +18,8 @@ const ListCard = ({ data, setIsModalVisible, setSelecetedRow }) => {
       <span>
         <EditFilled
           onClick={() => {
+            setactionType('edit')
+            setAddNewProfile(true)
             setSelecetedRow(data.id);
           }}
           style={{ color: "#f28e23" }}
@@ -37,7 +39,7 @@ const ListCard = ({ data, setIsModalVisible, setSelecetedRow }) => {
 };
 const ConformDelete = ({
   isModalVisible,
-  handleCancel,
+  
   deleteRelative,
   setIsModalVisible,
   selectedRow,
@@ -64,6 +66,7 @@ const ProfileList = () => {
   const [addNewProfile, setAddNewProfile] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRow, setSelecetedRow] = useState();
+  const [actionType,setactionType]=useState('add')
   const getAllRelatives = async () => {
     const { data, success } = await API.getAllRelatives({});
     if (success) {
@@ -93,6 +96,10 @@ const ProfileList = () => {
           </div>
           {relatives.map((e, i) => (
             <ListCard
+            setactionType={(e)=>{setactionType(e)}}
+            setAddNewProfile={(e)=>{
+              setAddNewProfile(e)
+            }}
               setSelecetedRow={(e) => {
                 setSelecetedRow(e);
               }}
@@ -114,6 +121,7 @@ const ProfileList = () => {
             <button
               onClick={() => {
                 setAddNewProfile(true);
+                setactionType('add')
               }}
               style={{ width: "150px" }}
               className="save-profile-btn"
@@ -134,6 +142,7 @@ const ProfileList = () => {
           </div>
 
           <AddNewProfile
+          actionType={actionType}
             selectedRow={selectedRow}
             getAllRelatives={getAllRelatives}
             setAddNewProfile={(e) => setAddNewProfile(e)}

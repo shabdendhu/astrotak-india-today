@@ -25,7 +25,8 @@ const DELETEFUN = (endpoint) => {
 };
 const UPDATEFUN = (endpoint) => {
   return async (id, data) => {
-    const response = await AxiosManager.put(endpoint + id, data);
+    console.log(id)
+    const response = await AxiosManager.post(endpoint + id, data);
     return response;
   };
 };

@@ -11,10 +11,16 @@ import {
 } from "antd";
 import maper from "../../utils/maper";
 import { API } from "../../services/api.service";
+import moment from "moment";
 
-const AddNewProfile = ({ setAddNewProfile, getAllRelatives,selectedRow }) => {
+const AddNewProfile = ({
+  setAddNewProfile,
+  getAllRelatives,
+  selectedRow,
+  actionType,
+}) => {
   const [palces, setPlaces] = useState([]);
-  const [selectedPlace, setSelectedPlace] = useState({});
+  const [selectedPlace, setSelectedPlace] = useState();
   const [form] = Form.useForm();
   const relations = [
     { name: "Father", id: 1 },
@@ -57,7 +63,45 @@ const AddNewProfile = ({ setAddNewProfile, getAllRelatives,selectedRow }) => {
       console.log(payload, addRes);
     });
   };
+  const editData = () => {
+    form.validateFields().then(async (value) => {
+      // value.birthPlace = selectedPlace;
+      // let payload = maper.addRealtiveData(value);
+      const [first, last] = value.name.split(" ");
 
+      const editData = {
+        uuid: selectedRow,
+        relation: value.relation.label,
+        relationId: value.relation.key,
+        firstName: first,
+        middleName: null,
+        lastName: last || "",
+        fullName: value.name,
+        gender: value.gender,
+        dateAndTimeOfBirth: moment(value.dob, value.tob),
+        birthDetails: {
+          dobDay: parseInt(moment(value.dob).format("DD")),
+          dobMonth: parseInt(moment(value.dob).format("MM")),
+          dobYear: parseInt(moment(value.dob).format("YYYY")),
+          tobHour: parseInt(moment(value.tob).format("hh")),
+          tobMin: parseInt(moment(value.tob).format("mm")),
+          meridiem: moment(value.tob).format("A"),
+        },
+        birthPlace: {
+          placeName: value.placeOfBirth,
+          placeId: selectedPlace,
+        },
+      };
+      console.log(value, editData, selectedPlace);
+      const updateRes = await API.updateRelative(selectedRow, editData);
+      if (updateRes.data.success) {
+        form.resetFields();
+        setAddNewProfile(false);
+        getAllRelatives();
+      }
+      console.log(updateRes);
+    });
+  };
   const onSelect = (data) => {
     console.log("onSelect", data);
     palces.forEach((e, i) => {
@@ -66,16 +110,23 @@ const AddNewProfile = ({ setAddNewProfile, getAllRelatives,selectedRow }) => {
       }
     });
   };
-const editObj=async()=>{
-  if(actionType==='edit'){
-    const {data}=await API.getAllRelatives({})
-    data.forEach((e,i)=>{
-      if(e.uuid===selectedRow){
-        form.setFieldsValue(editData);
-      }
-    })
-  }
-}
+  const editObj = async () => {
+    if (actionType === "edit") {
+      const { data } = await API.getAllRelatives({});
+      data.allRelatives.forEach((e, i) => {
+        // alert('hhf')
+        if (e.uuid === selectedRow) {
+          form.setFieldsValue(maper.editObj(e));
+          setSelectedPlace(e.birthPlace.placeId);
+          console.log(maper.editObj(e));
+        }
+      });
+    }
+  };
+  useEffect(() => {
+    editObj();
+  }, []);
+
   return (
     <>
       <Form form={form}>
@@ -111,6 +162,7 @@ const editObj=async()=>{
             style={{ width: "100%", height: "50px" }}
             onSearch={handleChangePlace}
             placeholder="search here"
+            value={form.getFieldsValue("placeOfBirth")}
           >
             {palces.map((e) => (
               <AutoComplete.Option key={e.placeId} value={e.placeName}>
@@ -163,7 +215,10 @@ const editObj=async()=>{
           justifyContent: "center",
         }}
       >
-        <button onClick={saveChanges} className="save-profile-btn">
+        <button
+          onClick={actionType === "add" ? saveChanges : editData}
+          className="save-profile-btn"
+        >
           Save Changes
         </button>
       </div>
