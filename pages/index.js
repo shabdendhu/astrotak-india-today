@@ -1,22 +1,32 @@
 import { Select } from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Notification from "../components/footer/Notification";
 import BalanceBar from "../components/templets/balanceBar";
 import QuestionIcon from "../components/templets/QuestionIcon";
+import { API } from "../services/api.service";
 const { Option } = Select;
 
 const Home = () => {
-  const questions = [
-    `When is the right for me to introduce my 
-  boyfriend /
-  girlfriend?`,
-    `Doubtful about taking my relationship to next level?`,
-    `How will i meet my potential partner?`,
-    `Is my wife/Husband faithful`,
-    `Will i ever meet my true love?`,
-    `When will i get in relationship?`,
-  ];
+  const [category, setcategory] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState({ suggestions: [] });
+  const [selectedQuestion, setSelectedQuestion] = useState("");
+  const selectQuestionCategory = async () => {
+    const res = await API.getAllCategory({});
+    console.log(res);
+    setcategory(res.data);
+    setSelectedCategory(res.data[0]);
+  };
+  useEffect(() => {
+    selectQuestionCategory();
+  }, []);
+  const handleCategoryCahnge = (e) => {
+    category.forEach((item) => {
+      if (e.value === item.id) {
+        setSelectedCategory(item);
+      }
+    });
+  };
   return (
     <>
       <BalanceBar />
@@ -34,16 +44,29 @@ const Home = () => {
         <span className="question">Choose Category</span>
         <br />
         <Select
+          onChange={handleCategoryCahnge}
           style={{ width: "100%", marginTop: "5px" }}
-          defaultValue={{ key: 1, label: "Love", value: 1 }}
+          value={{
+            key: selectedCategory.id,
+            label: selectedCategory.name,
+            value: selectedCategory.id,
+          }}
           labelInValue
         >
-          <Option value="jack">Jack</Option>
+          {category.map((e) => (
+            <Option kay={e.id} value={e.id}>
+              {e.name}
+            </Option>
+          ))}
         </Select>
         <br />
         <TextArea
           maxLength={150}
           showCount
+          value={selectedQuestion}
+          onChange={(e) => {
+            setSelectedQuestion(e.target.value);
+          }}
           placeholder="Type a question Here"
           style={{
             width: "100%",
@@ -58,8 +81,13 @@ const Home = () => {
         <br />
         <span className="question">Ideas what to ask (Select Any)</span>
         <br />
-        {questions.map((e, i) => (
-          <div key={i}>
+        {selectedCategory.suggestions.map((e, i) => (
+          <div
+            onClick={() => {
+              setSelectedQuestion(e);
+            }}
+            key={i}
+          >
             <span
               style={{
                 display: "flex",
@@ -106,7 +134,7 @@ const Home = () => {
           </ul>
         </div>
       </div>
-      <Notification />
+      <Notification selectedCategory={selectedCategory}/>
     </>
   );
 };

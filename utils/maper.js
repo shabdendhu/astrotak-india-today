@@ -3,6 +3,7 @@ import moment from "moment";
 const maper = {
   relativeData: (obj) => {
     return {
+      id:obj.uuid,
       name: obj.firstName,
       dob: moment(obj.dateAndTimeOfBirth).format("YYYY-MM-DD"),
       tob: moment(obj.dateAndTimeOfBirth).format("hh:mm"),
@@ -34,5 +35,16 @@ const maper = {
       gender: obj.gender,
     };
   },
+  editObj:(obj)=>{
+    return {
+      name:'',
+      dob:'',
+      tob:'',
+      placeOfBirth:'',
+      gender:'',
+      relation:'',
+
+    }
+  }
 };
 export default maper;

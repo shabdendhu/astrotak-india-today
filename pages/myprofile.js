@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { WalletFilled } from "@ant-design/icons/lib/icons";
-import { DatePicker, Form, Input, Select, TimePicker } from "antd";
-import TextArea from "antd/lib/input/TextArea";
+import { Form } from "antd";
 import ProfileForm from "../components/myprofile/profileForm";
 import ProfileList from "../components/myprofile/profileList";
 const MyProfile = () => {
@@ -58,7 +57,7 @@ const MyProfile = () => {
             Add Money
           </button>
         </div>
-        {profile===1?<ProfileForm form={form}/>:<ProfileList/>}
+        {profile === 1 ? <ProfileForm form={form} /> : <ProfileList />}
       </div>
     </>
   );

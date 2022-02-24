@@ -12,7 +12,7 @@ import {
 import maper from "../../utils/maper";
 import { API } from "../../services/api.service";
 
-const AddNewProfile = ({ setAddNewProfile, getAllRelatives }) => {
+const AddNewProfile = ({ setAddNewProfile, getAllRelatives,selectedRow }) => {
   const [palces, setPlaces] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState({});
   const [form] = Form.useForm();
@@ -66,7 +66,16 @@ const AddNewProfile = ({ setAddNewProfile, getAllRelatives }) => {
       }
     });
   };
-
+const editObj=async()=>{
+  if(actionType==='edit'){
+    const {data}=await API.getAllRelatives({})
+    data.forEach((e,i)=>{
+      if(e.uuid===selectedRow){
+        form.setFieldsValue(editData);
+      }
+    })
+  }
+}
   return (
     <>
       <Form form={form}>

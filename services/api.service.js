@@ -19,7 +19,7 @@ const ADDFUN = (endPoint) => {
 
 const DELETEFUN = (endpoint) => {
   return async (id) => {
-    const response = await AxiosManager.delete(endpoint + id);
+    const response = await AxiosManager.post(endpoint + id);
     return response
   };
 };
