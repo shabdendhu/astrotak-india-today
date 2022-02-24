@@ -42,8 +42,8 @@ const Home = () => {
         </Select>
         <br />
         <TextArea
-        maxLength={150}
-        showCount
+          maxLength={150}
+          showCount
           placeholder="Type a question Here"
           style={{
             width: "100%",
@@ -59,21 +59,20 @@ const Home = () => {
         <span className="question">Ideas what to ask (Select Any)</span>
         <br />
         {questions.map((e, i) => (
-          <>
+          <div key={i}>
             <span
-              key={i}
               style={{
                 display: "flex",
                 alignItems: "center",
                 borderBottom: "1px solid #d6d6d6",
                 paddingBottom: "10px",
-                margin:'0px 10px'
+                margin: "0px 10px",
               }}
             >
               <QuestionIcon /> {e}
             </span>
             <br />
-          </>
+          </div>
         ))}
         Sheeking accurate answer to difficult questions troubling your mind? Ask
         creadible astrologers to know what future has in store for you.
@@ -84,7 +83,7 @@ const Home = () => {
             background: "#ffe5d4",
             color: "#ff944e",
             padding: "6px 0px",
-            borderRadius:'5px'
+            borderRadius: "5px",
           }}
         >
           <ul>
@@ -107,7 +106,7 @@ const Home = () => {
           </ul>
         </div>
       </div>
-      <Notification/>
+      <Notification />
     </>
   );
 };

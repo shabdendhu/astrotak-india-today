@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { WalletFilled } from "@ant-design/icons/lib/icons";
+import { DatePicker, Form, Input, Select, TimePicker } from "antd";
+import TextArea from "antd/lib/input/TextArea";
+import ProfileForm from "../components/myprofile/profileForm";
+import ProfileList from "../components/myprofile/profileList";
 const MyProfile = () => {
+  const [form] = Form.useForm();
   const [selectedTab, setselectedTab] = useState(1);
   const [profile, setProfile] = useState(1);
+
   return (
     <>
       <div className="profile-tab">
@@ -52,7 +58,7 @@ const MyProfile = () => {
             Add Money
           </button>
         </div>
-
+        {profile===1?<ProfileForm form={form}/>:<ProfileList/>}
       </div>
     </>
   );
