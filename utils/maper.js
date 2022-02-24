@@ -49,11 +49,7 @@ const maper = {
       }),
       placeOfBirth: obj.birthPlace.placeName,
       gender: obj.gender,
-      relation: {
-        key: obj.relationId,
-        label: obj.relation,
-        value: obj.relationId,
-      },
+      relation: obj.relationId,
     };
   },
 };

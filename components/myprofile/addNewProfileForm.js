@@ -71,8 +71,7 @@ const AddNewProfile = ({
 
       const editData = {
         uuid: selectedRow,
-        relation: value.relation.label,
-        relationId: value.relation.key,
+        relationId: value.relation,
         firstName: first,
         middleName: null,
         lastName: last || "",
@@ -106,7 +105,7 @@ const AddNewProfile = ({
     console.log("onSelect", data);
     palces.forEach((e, i) => {
       if (data === e.placeName) {
-        setSelectedPlace(e);
+        setSelectedPlace(e.placeId);
       }
     });
   };
@@ -197,7 +196,7 @@ const AddNewProfile = ({
               name="relation"
               rules={[{ required: true, message: "Invalid Gender!" }]}
             >
-              <Select style={{ height: "50px" }}>
+              <Select  style={{ height: "50px" }}>
                 {relations.map((e, i) => (
                   <Select.Option value={e.id} key={i}>
                     {e.name}

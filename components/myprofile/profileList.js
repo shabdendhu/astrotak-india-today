@@ -8,7 +8,13 @@ import React, { useEffect, useState } from "react";
 import { API } from "../../services/api.service";
 import maper from "../../utils/maper";
 import AddNewProfile from "./addNewProfileForm";
-const ListCard = ({ data, setIsModalVisible, setSelecetedRow ,setAddNewProfile,setactionType}) => {
+const ListCard = ({
+  data,
+  setIsModalVisible,
+  setSelecetedRow,
+  setAddNewProfile,
+  setactionType,
+}) => {
   return (
     <div className="profile-list-card">
       <span>{data.name}</span>
@@ -18,8 +24,8 @@ const ListCard = ({ data, setIsModalVisible, setSelecetedRow ,setAddNewProfile,s
       <span>
         <EditFilled
           onClick={() => {
-            setactionType('edit')
-            setAddNewProfile(true)
+            setactionType("edit");
+            setAddNewProfile(true);
             setSelecetedRow(data.id);
           }}
           style={{ color: "#f28e23" }}
@@ -39,7 +45,7 @@ const ListCard = ({ data, setIsModalVisible, setSelecetedRow ,setAddNewProfile,s
 };
 const ConformDelete = ({
   isModalVisible,
-  
+
   deleteRelative,
   setIsModalVisible,
   selectedRow,
@@ -66,7 +72,7 @@ const ProfileList = () => {
   const [addNewProfile, setAddNewProfile] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRow, setSelecetedRow] = useState();
-  const [actionType,setactionType]=useState('add')
+  const [actionType, setactionType] = useState("add");
   const getAllRelatives = async () => {
     const { data, success } = await API.getAllRelatives({});
     if (success) {
@@ -96,10 +102,12 @@ const ProfileList = () => {
           </div>
           {relatives.map((e, i) => (
             <ListCard
-            setactionType={(e)=>{setactionType(e)}}
-            setAddNewProfile={(e)=>{
-              setAddNewProfile(e)
-            }}
+              setactionType={(e) => {
+                setactionType(e);
+              }}
+              setAddNewProfile={(e) => {
+                setAddNewProfile(e);
+              }}
               setSelecetedRow={(e) => {
                 setSelecetedRow(e);
               }}
@@ -121,7 +129,7 @@ const ProfileList = () => {
             <button
               onClick={() => {
                 setAddNewProfile(true);
-                setactionType('add')
+                setactionType("add");
               }}
               style={{ width: "150px" }}
               className="save-profile-btn"
@@ -138,11 +146,11 @@ const ProfileList = () => {
               setAddNewProfile(false);
             }}
           >
-            <LeftOutlined /> Add New Profile
+            <LeftOutlined /> {actionType === "add" ? "Add New" : "Edit"} Profile
           </div>
 
           <AddNewProfile
-          actionType={actionType}
+            actionType={actionType}
             selectedRow={selectedRow}
             getAllRelatives={getAllRelatives}
             setAddNewProfile={(e) => setAddNewProfile(e)}
