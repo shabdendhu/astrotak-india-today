@@ -13,7 +13,7 @@ import maper from "../../utils/maper";
 import { API } from "../../services/api.service";
 import moment from "moment";
 
-const AddNewProfile = ({
+const ProfileForm = ({
   setAddNewProfile,
   getAllRelatives,
   selectedRow,
@@ -225,4 +225,4 @@ const AddNewProfile = ({
   );
 };
 
-export default AddNewProfile;
+export default ProfileForm;

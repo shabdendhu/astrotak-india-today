@@ -2,12 +2,14 @@ import {
   DeleteFilled,
   EditFilled,
   LeftOutlined,
+  LoadingOutlined,
 } from "@ant-design/icons/lib/icons";
-import { Form, Modal } from "antd";
+import { Form, Modal, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import { API } from "../../services/api.service";
 import maper from "../../utils/maper";
-import AddNewProfile from "./addNewProfileForm";
+import Notification from "../templets/Notification";
+import ProfileForm from "./RelativesProfileForm";
 const ListCard = ({
   data,
   setIsModalVisible,
@@ -66,16 +68,21 @@ const ConformDelete = ({
     </Modal>
   );
 };
+const antIcon = <LoadingOutlined style={{ fontSize: 50,color:'#f28e23' }} spin />;
+
 const ProfileList = () => {
   const [form] = Form.useForm();
   const [relatives, setRelatives] = useState([]);
-  const [addNewProfile, setAddNewProfile] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRow, setSelecetedRow] = useState();
   const [actionType, setactionType] = useState("add");
+  const [showLoader, setshowLoader] = useState(false);
+  const [addNewProfile, setAddNewProfile] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const getAllRelatives = async () => {
+    setshowLoader(true);
     const { data, success } = await API.getAllRelatives({});
     if (success) {
+      setshowLoader(false);
       console.log(maper.relativeList(data.allRelatives));
       setRelatives(maper.relativeList(data.allRelatives));
     }
@@ -94,12 +101,18 @@ const ProfileList = () => {
     <div>
       {!addNewProfile ? (
         <>
+        <Notification />
           <div className="card-header">
             <span style={{ marginLeft: "10px" }}>NAME</span>
             <span style={{ marginLeft: "35px" }}>DOB</span>
             <span style={{ marginLeft: "44px" }}>TOB</span>
             <span style={{ marginLeft: "21px" }}>Relation</span>
           </div>
+          {showLoader && (
+            <div className="loader">
+              <Spin indicator={antIcon} />
+            </div>
+          )}
           {relatives.map((e, i) => (
             <ListCard
               setactionType={(e) => {
@@ -149,7 +162,7 @@ const ProfileList = () => {
             <LeftOutlined /> {actionType === "add" ? "Add New" : "Edit"} Profile
           </div>
 
-          <AddNewProfile
+          <ProfileForm
             actionType={actionType}
             selectedRow={selectedRow}
             getAllRelatives={getAllRelatives}

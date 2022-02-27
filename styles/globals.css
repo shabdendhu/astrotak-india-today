@@ -243,3 +243,33 @@ a {
   font-size: 20px;
   font-weight: 400;
 }
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ant-btn-primary {
+  background: #f28e23 !important;
+  height: 40px !important;
+  width: 120px;
+  border-radius: 5px !important;
+}
+.ant-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.ant-modal-content {
+  width: 90%;
+  border-radius: 10px !important;
+}
+.ant-btn-default {
+  height: 40px !important;
+  width: 120px;
+  border-radius: 5px !important;
+}
+.ant-modal {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}

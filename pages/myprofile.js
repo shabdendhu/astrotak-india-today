@@ -6,8 +6,8 @@ import ProfileForm from "../components/myprofile/profileForm";
 import ProfileList from "../components/myprofile/profileList";
 const MyProfile = () => {
   const [form] = Form.useForm();
-  const [selectedTab, setselectedTab] = useState(1);
   const [profile, setProfile] = useState(1);
+  const [selectedTab, setselectedTab] = useState(1);
 
   return (
     <>

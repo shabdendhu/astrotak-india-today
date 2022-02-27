@@ -10,8 +10,8 @@ const { Option } = Select;
 
 const Home = () => {
   const [category, setcategory] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState({ suggestions: [] });
   const [selectedQuestion, setSelectedQuestion] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState({ suggestions: [] });
   const selectQuestionCategory = async () => {
     const res = await API.getAllCategory({});
     console.log(res);
