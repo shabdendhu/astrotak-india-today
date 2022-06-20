@@ -55,6 +55,7 @@ a {
   padding: 10px;
   margin-top: 140px;
   padding-bottom: 140px;
+  background-color: #d4d4d4;
 }
 .profile-container {
   padding: 10px;
@@ -86,14 +87,14 @@ a {
   box-shadow: inset 1px 1px 0 rgb(0 0 0 / 14%);
 }
 .footer-icon {
-  height: 30px;
-  width: 30px;
+  font-size: 35px !important;
 }
 .footer-icon-container {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  font-size: 17px;
 }
 .footer-notification {
   position: fixed;

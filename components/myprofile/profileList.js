@@ -78,24 +78,24 @@ const ProfileList = () => {
   const [showLoader, setshowLoader] = useState(false);
   const [addNewProfile, setAddNewProfile] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const getAllRelatives = async () => {
-    setshowLoader(true);
-    const { data, success } = await API.getAllRelatives({});
-    if (success) {
-      setshowLoader(false);
-      console.log(maper.relativeList(data.allRelatives));
-      setRelatives(maper.relativeList(data.allRelatives));
-    }
-  };
-  const deleteRelative = async (id) => {
-    const deleteRes = await API.deleteRelative(id);
-    setIsModalVisible(false);
-    getAllRelatives();
-    console.log(deleteRes);
-  };
-  useEffect(() => {
-    getAllRelatives();
-  }, []);
+  // const getAllRelatives = async () => {
+  //   setshowLoader(true);
+  //   const { data, success } = await API.getAllRelatives({});
+  //   if (success) {
+  //     setshowLoader(false);
+  //     console.log(maper.relativeList(data.allRelatives));
+  //     setRelatives(maper.relativeList(data.allRelatives));
+  //   }
+  // };
+  // const deleteRelative = async (id) => {
+  //   const deleteRes = await API.deleteRelative(id);
+  //   setIsModalVisible(false);
+  //   getAllRelatives();
+  //   console.log(deleteRes);
+  // };
+  // useEffect(() => {
+  //   getAllRelatives();
+  // }, []);
 
   return (
     <div>
@@ -173,7 +173,7 @@ const ProfileList = () => {
       )}
       <ConformDelete
         selectedRow={selectedRow}
-        deleteRelative={deleteRelative}
+        // deleteRelative={deleteRelative}
         isModalVisible={isModalVisible}
         setIsModalVisible={(e) => {
           setIsModalVisible(e);

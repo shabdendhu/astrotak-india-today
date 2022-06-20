@@ -1,10 +1,10 @@
 import React from "react";
 
-const Notification = ({ selectedCategory }) => {
+const Notification = () => {
   return (
     <div className="footer-notification">
-      ₹ {selectedCategory.price} (1 Question on {selectedCategory.name} )
-      <button className="footer-notification-button">Ask Now</button>
+      1 Meal Raise By Chitta Ranjan
+      <button className="footer-notification-button">Accept Now</button>
     </div>
   );
 };
