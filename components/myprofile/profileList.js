@@ -5,9 +5,7 @@ import {
   LoadingOutlined,
 } from "@ant-design/icons/lib/icons";
 import { Form, Modal, Spin } from "antd";
-import React, { useEffect, useState } from "react";
-import { API } from "../../services/api.service";
-import maper from "../../utils/maper";
+import React, { useState } from "react";
 import Notification from "../templets/Notification";
 import ProfileForm from "./RelativesProfileForm";
 const ListCard = ({
@@ -47,7 +45,6 @@ const ListCard = ({
 };
 const ConformDelete = ({
   isModalVisible,
-
   deleteRelative,
   setIsModalVisible,
   selectedRow,
@@ -68,7 +65,9 @@ const ConformDelete = ({
     </Modal>
   );
 };
-const antIcon = <LoadingOutlined style={{ fontSize: 50,color:'#f28e23' }} spin />;
+const antIcon = (
+  <LoadingOutlined style={{ fontSize: 50, color: "#f28e23" }} spin />
+);
 
 const ProfileList = () => {
   const [form] = Form.useForm();
@@ -101,7 +100,7 @@ const ProfileList = () => {
     <div>
       {!addNewProfile ? (
         <>
-        <Notification />
+          <Notification />
           <div className="card-header">
             <span style={{ marginLeft: "10px" }}>NAME</span>
             <span style={{ marginLeft: "35px" }}>DOB</span>
